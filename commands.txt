@@ -1,0 +1,7 @@
+PS E:\softwares\java\kafka\kafka\bin\windows> .\zookeeper-server-start.bat ..\..\config\zookeeper.properties
+
+
+
+E:\softwares\java\kafka\kafka\bin\windows> .\kafka-server-start.bat ..\..\config\server.properties
+
+PS E:\softwares\java\kafka\kafka\bin\windows> .\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic meetupTopic --from-beginning

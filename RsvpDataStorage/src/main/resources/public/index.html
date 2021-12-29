@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scala=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <title>Simple markers</title>
+        <style>
+            #map {
+                height: 100%;
+            }
+
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="result"></div>
+
+        <script>
+            if (typeof (EventSource) !== "undefined") {
+
+                var source = new EventSource("/meetupRsvps",
+                    {headers: "Content-Type: text/event-stream"});
+                source.onmessage = function (event) {
+
+                    var data = JSON.parse(event.data);
+                    addMarker(data.venue.lat, data.venue.lon, data.venue.venue_name,
+                    data.guests);
+                };
+            } else {
+                document.getElementById("result").innerHTML =
+                    "Sorry, your browser does not support server-sent events...";
+            }
+
+            function addMarker(latv, longv, venueName, guests) {
+                var myLatLng = {latv: latv, lng: lngV};
+
+                new google.maps.Marker({
+                   position: myLatLng,
+                   map: map,
+                   title: venueName + " (guests: " + guests + ")"
+                });
+            }
+
+            function initMap(){
+                var myLatLng = {lat: 0.0, lng: 0.0}
+
+                map = new google.maps.Map(document.getElementById('map), {
+                    zoom: 3,
+                    center: myLatLng
+                });
+
+            }
+        </script>
+    <script async defer src="">
+
+    </script>
+    </body>
+</html>
